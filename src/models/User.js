@@ -1,7 +1,5 @@
 const { mongoose } = require("../config/db");
-
-
-let userSchema = {
+const userSchema = new mongoose.Schema({
     firstname:{
         type: String,
         required: true,
@@ -29,10 +27,23 @@ let userSchema = {
     },
     role:{
         type: String,
-        required: true,
-    }
-        
-}
+        enum: ['admin', 'teacher','student'],
+        default:'student',
+        //required: true,
+    },
+    //token:token    
+},
+{
+    timestamps: true
+})
+/*userSchema.virtual('password')
+  .set(function (password) {
+    this.salt = crypto.randomBytes(32).toString('base64');
+    this.password_hash = this.encryptPassword(password, this.salt);
+  })
+  .get(function () {
+    return this.password_hash;
+  });*/
 
 const User = mongoose.model("User",userSchema);
 

@@ -1,5 +1,6 @@
-const { User } = require("../model/user");
+const { User } = require("../models/User");
 const bcrypt = require("bcrypt")
+var jwt = require('jsonwebtoken');
 
 
 //HOF
@@ -20,13 +21,28 @@ let registerController = function(req,res){
         //db incertion
         const user = new User(req.body);
             user.save().then(d => {
+                //var token = jwt.sign(req.body,process.env.JWT_TOKEN);
+                let data ={
+                    firstname: req.body.firstname,
+                    lastname: req.body.lastname,
+                    email:req.body.email,
+                    username: req.body.username,
+                    password_hash :req.body.password_hash,
+                    role: req.body.role,
+                    //token:token
+                }  
+                delete data.username,
+                delete data.password_hash;
+                 
+                //req.body.token = token;
                 res.status(200).json({
                     msg:'User registed successfully',
-                    data:req.body
+                    data:data
                 });
             }).catch(e=>{
                 res.status(400).json({
                     msg:'error'
+
                 });
             });
             
