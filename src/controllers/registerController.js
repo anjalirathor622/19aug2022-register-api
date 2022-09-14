@@ -6,13 +6,15 @@ var jwt = require('jsonwebtoken');
 //HOF
 let registerController = function(req,res){
 
+    
+
     //Adventure.findOne({ country: 'Croatia' }, function (err, adventure) {});
     User.findOne({ email:req.body.email,username:req.body.username},function (err,user){
-        console.log(user)
+        //console.log(user)
         if(user === null){
             
 
-            console.log(req.body.password_hash);
+            //console.log(req.body.password_hash);
             const saltRounds = 10;
             let encryptedpassword = bcrypt.hashSync(req.body.password_hash, saltRounds);;
             req.body.password_hash = encryptedpassword;
@@ -21,6 +23,7 @@ let registerController = function(req,res){
         //db incertion
         const user = new User(req.body);
             user.save().then(d => {
+               
                 //var token = jwt.sign(req.body,process.env.JWT_TOKEN);
                 let data ={
                     firstname: req.body.firstname,
@@ -31,8 +34,8 @@ let registerController = function(req,res){
                     role: req.body.role,
                     //token:token
                 }  
-                delete data.username,
-                delete data.password_hash;
+                //delete data.username,
+                //delete data.password_hash;
                  
                 //req.body.token = token;
                 res.status(200).json({
@@ -40,6 +43,7 @@ let registerController = function(req,res){
                     data:data
                 });
             }).catch(e=>{
+                console.log(e);
                 res.status(400).json({
                     msg:'error'
 

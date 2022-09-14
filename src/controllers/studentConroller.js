@@ -2,7 +2,8 @@ let studentController = (req,res)=>{
     res.status(200).json({
         
         msg:"ok",
-        myemail:req.email,
+        name:req.body.name,
+        surname:req.body.surname,
         myrole:req.role
     });
 }
