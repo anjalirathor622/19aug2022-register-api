@@ -1,10 +1,21 @@
+const { Admin } = require("../models/User");
+
 let adminController = (req,res)=>{
-    res.status(200).json({
-        msg:'ok',
-        username:req.username,
-        email: req.email,
-        role: req.role
+    const admin = new Admin(req.body);
+    admin.save()
+    .then(d=>{
+        res.status(200).json({
+            msg:'ok',
+            data:req.body
+        })
     })
+    .catch(e=>{
+        res.status(400).json({
+            msg:'ok',
+            error:e
+        })
+    })
+
 }
 
 

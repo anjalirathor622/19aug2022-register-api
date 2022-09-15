@@ -47,5 +47,67 @@ const userSchema = new mongoose.Schema({
 
 const User = mongoose.model("User",userSchema);
 
+const studentShema = mongoose.Schema({
+    name:{
+        type:String,
+        required:true
+    },
+    surname:{
+        type: String,
+        required:true
+    },
+    email:{
+        type: String,
+        required:true,
+        unique:true
+    }
 
-exports.User=User
+},{
+    timestamps: true
+});
+
+const Student = mongoose.model('Student',studentShema)
+
+const teacherShema = mongoose.Schema({
+    name:{
+        type:String,
+        required:true
+    },
+    surname:{
+        type: String,
+        required:true
+    },
+    email:{
+        type: String,
+        required:true,
+        unique:true
+    }
+
+},{
+    timestamps: true
+});
+
+const Teacher = mongoose.model('Teacher',teacherShema);
+
+const adminShema = mongoose.Schema({
+    name:{
+        type:String,
+        required:true
+    },
+    surname:{
+        type: String,
+        required:true
+    },
+    email:{
+        type: String,
+        required:true,
+        unique:true
+    }
+
+},{
+    timestamps: true
+});
+
+const Admin = mongoose.model('Admin',adminShema)
+
+module.exports = {User,Student,Teacher,Admin}

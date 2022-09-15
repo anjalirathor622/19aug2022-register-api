@@ -32,7 +32,9 @@ let loginController = (req,res)=>{
                  console.log(user.email)
                  res.status(200).json({
                      msg:"Login Success",
-                     data:user,
+                     name:user.name,
+                     email:user.email,
+                     role:user.role,
                      token: jwt.sign({user:user.email,role:user.role},process.env.JWT_TOKEN, {
                          expiresIn: "1d",
                      })
